@@ -153,7 +153,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
               <div className="w-full h-10 flex items-center justify-center">
-              <Image src="/@linvol.png" alt="logo" width={240} height={240} />
+              <Image src="/linvol.png" alt="logo" width={240} height={240} />
               </div>
           </SidebarMenuItem>
         </SidebarMenu>
