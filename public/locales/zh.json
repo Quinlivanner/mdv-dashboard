@@ -1,0 +1,9 @@
+{
+    "auth": {
+        "welcome_to_use": "欢迎使用 Cerasol CRM.",
+        "login_success": "登录成功",
+        "redirecting": "即将跳转至首页...",
+        "login_failed": "登录失败",
+        "check_account_password": "请检查账号密码是否正确"
+    }
+}

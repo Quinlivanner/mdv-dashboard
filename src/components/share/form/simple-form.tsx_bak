@@ -1,0 +1,113 @@
+import {
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+  } from "@/components/ui/form";
+  import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectSeparator,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select";
+  import { Input } from "@/components/ui/input";
+  import { useEffect, useRef, useState } from "react";
+  
+  interface Props<T extends { id: number | string; name: string }> {
+    label: string;
+    form: any;          // react-hook-form 实例
+    name: string;       // 表单字段名
+    isLoading: boolean;
+    filteredItems: T[]; // 待筛选列表
+  }
+  
+  export function FormSearchSelectFiled<T extends { id: number | string; name: string }>({
+    label,
+    form,
+    name,
+    isLoading,
+    filteredItems,
+  }: Props<T>) {
+    const [items, setItems] = useState<T[]>(filteredItems);
+    const searchRef = useRef<HTMLInputElement>(null);
+  
+    /* 外部数据更新时，同步内部列表 */
+    useEffect(() => {
+      setItems(filteredItems);
+    }, [filteredItems]);
+  
+    const handleSearchChange = (keyword: string) => {
+      if (!keyword.trim()) {
+        setItems(filteredItems);
+        return;
+      }
+      const result = filteredItems.filter((it) =>
+        it.name.toLowerCase().includes(keyword.toLowerCase()),
+      );
+      setItems(result);
+    };
+  
+    return (
+      <FormField
+        control={form.control}
+        name={name}
+        render={({ field }) => (
+          <FormItem className="w-full">
+            <FormLabel>{label}</FormLabel>
+            <Select
+              value={field.value}
+              onValueChange={field.onChange}
+              disabled={isLoading}
+            >
+              <FormControl>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder={`请选择${label}`} />
+                </SelectTrigger>
+              </FormControl>
+  
+              {/* 下拉内容 */}
+              <SelectContent
+                /* 阻止默认自动聚焦选项，留给搜索框 */
+                onCloseAutoFocus={(e) => e.preventDefault()}
+              >
+                {/* 搜索框 */}
+                <div
+                  className="px-2 py-2"
+                  onKeyDown={(e) => e.stopPropagation()} // 防冒泡给 Radix
+                >
+                  <Input
+                    ref={searchRef}
+                    autoFocus
+                    placeholder={`搜索${label}...`}
+                    className="h-8"
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      handleSearchChange(e.target.value);
+                    }}
+                    onKeyDown={(e) => e.stopPropagation()}
+                  />
+                </div>
+  
+                <SelectSeparator />
+  
+                {items.length ? (
+                  items.map((it) => (
+                    <SelectItem key={it.id} value={it.id.toString()}>
+                      {it.name}
+                    </SelectItem>
+                  ))
+                ) : (
+                  <div className="px-4 py-2 text-muted-foreground">无结果</div>
+                )}
+              </SelectContent>
+            </Select>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    );
+  }
+  

@@ -1,0 +1,9 @@
+{
+    "auth": {
+        "welcome_to_use": "Welcome to use Cerasol CRM.",
+        "login_success": "Login successful",
+        "redirecting": "Redirecting to home page...",
+        "login_failed": "Login failed",
+        "check_account_password": "Please check your account and password"
+    }
+}
