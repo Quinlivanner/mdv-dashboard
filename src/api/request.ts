@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-    // baseURL: process.env.NEXT_PUBLIC_API_URL, // baseURL
-    baseURL: 'https://cerasol-api.mountex.online', // baseURL
+    baseURL: process.env.NEXT_PUBLIC_API_URL, // baseURL
+    // baseURL: 'https://cerasol-api.mountex.online', // baseURL
     timeout: 90000, // 超时时间
   });
   
