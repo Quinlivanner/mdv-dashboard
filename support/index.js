@@ -66,7 +66,9 @@ app.post("/deploy", (req, res) => {
         await executeCommand(
           "sudo docker run -d --restart=always --name mdv-app -p 0.0.0.0:30001:3000 mdv-app:1.0",
         );
-
+        await executeCommand(
+          "sudo /usr/local/bin/docker-cleanup.sh",
+        );
         messageContent = {
           email: "mdv github deployer from server",
           avatar_url:
