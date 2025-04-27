@@ -64,7 +64,7 @@ app.post("/deploy", (req, res) => {
 
         // Step 5: Run a new container with the updated image
         await executeCommand(
-          "sudo docker run -d --restart=always --name mdv-app -p 0.0.0.0:30001:3000 mdv-app:1.0",
+          "sudo docker run -d --restart=always --name mdv-app -p 0.0.0.0:30003:3000 mdv-app:1.0",
         );
         await executeCommand(
           "sudo /usr/local/bin/docker-cleanup.sh",
