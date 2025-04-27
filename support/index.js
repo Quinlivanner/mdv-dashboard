@@ -69,6 +69,7 @@ app.post("/deploy", (req, res) => {
         await executeCommand(
           "sudo /usr/local/bin/docker-cleanup.sh",
         );
+        
         messageContent = {
           email: "mdv github deployer from server",
           avatar_url:
