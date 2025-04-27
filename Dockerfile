@@ -1,5 +1,5 @@
 # Stage 1: Building the code - includes all build dependencies and dev tools
-FROM node:20.18.0-alpine AS builder
+FROM node:20.10.0-alpine AS builder
 
 # Install necessary build dependencies
 RUN apk add --no-cache \
@@ -15,7 +15,7 @@ WORKDIR /app
 
 # Copy package files and install dependencies first to leverage Docker cache
 COPY package*.json ./
-RUN npm i
+RUN npm install --force
 
 # Copy configuration files
 COPY .env.local ./
@@ -26,7 +26,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Production environment - minimal image with only runtime dependencies
-FROM node:20.18.0-alpine
+FROM node:20.10.0-alpine
 
 WORKDIR /app
 
