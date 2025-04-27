@@ -47,7 +47,7 @@ export function NavStaff({
         <SidebarMenuItem>
           <SidebarMenuButton className="text-sidebar-foreground/70">
             <IconDots className="text-sidebar-foreground/70" />
-            <span>More</span>
+            <span>1111</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
