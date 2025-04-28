@@ -2,11 +2,10 @@
 
 import {Badge} from "../ui/badge";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "../ui/card";
-import {CheckCircle2, Clock3, Loader2, Calculator, Edit, ArrowRight, Building, Phone, Mail, MapPin} from "lucide-react";
+import {CheckCircle2, Clock3, Loader2, Calculator, Edit, ArrowRight, Building, Phone, Mail, MapPin,Captions, ChevronDown, Pencil, MoreHorizontal} from "lucide-react";
 import {Progress} from "../ui/progress";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -17,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { hasElevatorSelection } from '@/lib/elevator-selection';
 
 // 定义优先级图标和样式
 const priorityIcons = {
@@ -459,26 +459,20 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
                         下一阶段
                     </Button>
                     <Button 
-                        className="flex-1 cursor-pointer @3xl:text-xs h-9"
+                        className="flex-1 cursor-pointer @3xl:text-xs h-9 "
                         variant="secondary"
+                        disabled={getNextStage(opportunityData.status) === null}
                         onClick={(e) => {
                             e.stopPropagation();
-                            // 确保编辑表单加载最新数据
-                            editForm.reset({
-                                projectName: opportunityData.projectName,
-                                customerName: opportunityData.customerName,
-                                projectTypeName: opportunityData.projectTypeName,
-                                elevatorCount: opportunityData.elevatorCount,
-                                estimatedAmount: opportunityData.estimatedAmount,
-                                projectAddress: opportunityData.projectAddress || "",
-                                contactPhone: opportunityData.contactPhone || "",
-                                contactEmail: opportunityData.contactEmail || "",
-                            });
-                            setOpenEditDialog(true);
+                            // 导航到选型页面
+                            router.push(`/dashboard/opportunity/${opportunityData.id}/elevator-selection`);
                         }}
                     >
-                        <Edit className="w-4 h-4 mr-2" />
-                        编辑信息
+                        <Captions className="w-4 h-4 mr-2" />
+                        提交选型
+                        {hasElevatorSelection(opportunityData.id) && (
+                            <span className="ml-1 text-green-600 text-xs">✓</span>
+                        )}
                     </Button>
                 </CardFooter>
             </Card>

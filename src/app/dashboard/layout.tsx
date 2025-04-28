@@ -27,6 +27,11 @@ function getPageTitle(pathname: string): string {
   if (pathname.match(/^\/dashboard\/opportunity\/[^\/]+$/)) {
     return "商机管理"
   }
+
+  // 处理电梯选型 http://localhost:3000/dashboard/opportunity/1001/elevator-selection
+  if (pathname.match(/^\/dashboard\/opportunity\/[^\/]+\/elevator-selection$/)) {
+    return "电梯选型"
+  }
   
 
 

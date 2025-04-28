@@ -221,14 +221,14 @@ export default function OpportunityDetailPage() {
           <h1 className="text-2xl font-bold">{opportunity.projectName}</h1>
           {getPriorityBadge(opportunity.priorityName)}
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 mr-2 ml-2">
           <Button variant="outline">
             <Phone className="h-4 w-4 mr-2" />
             联系客户
           </Button>
           <Button>
             <Edit className="h-4 w-4 mr-2" />
-            编辑商机
+            编辑详情
           </Button>
         </div>
       </div>
