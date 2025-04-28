@@ -26,13 +26,6 @@ export function SelectionResult({ result }: SelectionResultProps) {
       {/* 计算结果标题栏 */}
       <div className="flex items-center justify-between bg-green-500 text-white p-2 px-4 rounded-t-md">
         <h2 className="text-lg font-semibold">结果计算</h2>
-        <Button 
-          onClick={handleSaveToDatabase}
-          variant="outline" 
-          className="bg-white text-black hover:bg-gray-100"
-        >
-          Record into Database
-        </Button>
       </div>
 
       {/* 计算结果内容 */}

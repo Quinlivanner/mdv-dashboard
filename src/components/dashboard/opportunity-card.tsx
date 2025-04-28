@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { hasElevatorSelection } from '@/lib/elevator-selection';
+import { hasElevatorSelection, isElevatorSelectionSubmitted } from '@/lib/elevator-selection';
 
 // 定义优先级图标和样式
 const priorityIcons = {
@@ -145,11 +145,18 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
     const [openNextStageDialog, setOpenNextStageDialog] = useState(false);
     const [openEditDialog, setOpenEditDialog] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [isSelectionSubmitted, setIsSelectionSubmitted] = useState(false);
 
     // 当外部data变化时，同步更新本地状态
     useEffect(() => {
         setOpportunityData(data);
     }, [data]);
+
+    // 检查电梯选型状态
+    useEffect(() => {
+        // 检查是否已提交选型
+        setIsSelectionSubmitted(isElevatorSelectionSubmitted(opportunityData.id));
+    }, [opportunityData.id]);
 
     // 进度表单
     const progressForm = useForm<{ progress: string }>({
@@ -320,6 +327,11 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
         }
     };
 
+    // 前往电梯选型页面
+    const handleGoToSelection = () => {
+        router.push(`/dashboard/opportunity/${opportunityData.id}/elevator-selection`);
+    };
+
     return (
         <>
             <Card className="shadow-md w-full gap-2 h-full flex flex-col justify-between transition-transform hover:scale-[0.99] @container/card">
@@ -435,45 +447,51 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
                     </div>
                 </CardContent>
                 
-                <CardFooter className="px-4 py-3 gap-2">
-                    <Button 
-                        className="flex-1 cursor-pointer @3xl:text-xs h-9"
-                        variant="outline"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            router.push(`/dashboard/opportunity/${opportunityData.id}`);
-                        }}
-                    >
-                        <Calculator className="w-4 h-4 mr-2" />
-                        查看详情
-                    </Button>
-                    <Button 
-                        className="flex-1 cursor-pointer @3xl:text-xs h-9"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            setOpenNextStageDialog(true);
-                        }}
-                        disabled={getNextStage(opportunityData.status) === null}
-                    >
-                        <ArrowRight className="w-4 h-4 mr-2" />
-                        下一阶段
-                    </Button>
-                    <Button 
-                        className="flex-1 cursor-pointer @3xl:text-xs h-9 "
-                        variant="secondary"
-                        disabled={getNextStage(opportunityData.status) === null}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            // 导航到选型页面
-                            router.push(`/dashboard/opportunity/${opportunityData.id}/elevator-selection`);
-                        }}
-                    >
-                        <Captions className="w-4 h-4 mr-2" />
-                        提交选型
-                        {hasElevatorSelection(opportunityData.id) && (
-                            <span className="ml-1 text-green-600 text-xs">✓</span>
-                        )}
-                    </Button>
+                <CardFooter className="flex flex-col space-y-2 pt-2">
+                    <div className="flex justify-between items-center w-full">
+                        <div className="flex items-center space-x-2">
+                            <Button 
+                                className="flex-1 cursor-pointer @3xl:text-xs h-9"
+                                variant="outline"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    router.push(`/dashboard/opportunity/${opportunityData.id}`);
+                                }}
+                            >
+                                <Calculator className="w-4 h-4 mr-2" />
+                                查看详情
+                            </Button>
+                            <Button 
+                                className="flex-1 cursor-pointer @3xl:text-xs h-9"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setOpenNextStageDialog(true);
+                                }}
+                                disabled={getNextStage(opportunityData.status) === null}
+                            >
+                                <ArrowRight className="w-4 h-4 mr-2" />
+                                下一阶段
+                            </Button>
+                        </div>
+                        
+                        <div className="flex items-center space-x-2">
+                            {isSelectionSubmitted && (
+                                <Badge variant="outline" className="bg-green-50 text-green-600 border-green-100 flex items-center">
+                                    <CheckCircle2 className="w-3 h-3 mr-1" />
+                                    提交选型
+                                </Badge>
+                            )}
+                            <Button 
+                                size="sm" 
+                                variant="outline"
+                                className="flex items-center"
+                                onClick={handleGoToSelection}
+                            >
+                                <Calculator className="mr-1 h-4 w-4" />
+                                {isSelectionSubmitted ? "查看选型" : "电梯选型"}
+                            </Button>
+                        </div>
+                    </div>
                 </CardFooter>
             </Card>
 

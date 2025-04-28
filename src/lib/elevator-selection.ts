@@ -31,6 +31,8 @@ export interface ElevatorSelectionData {
   // 元数据
   opportunityId: string;       // 关联的商机ID
   lastUpdated: string;         // 最后更新时间
+  isSubmitted?: boolean;       // 是否已提交选型
+  submittedAt?: string;        // 提交时间
 }
 
 // 计算结果类型
@@ -46,7 +48,18 @@ export interface CalculatedResult {
 // 存储选型数据到localStorage
 export function saveElevatorSelection(data: ElevatorSelectionData): void {
   try {
-    localStorage.setItem(`elevator-selection-${data.opportunityId}`, JSON.stringify(data));
+    localStorage.setItem(`elevatorSelectionData-${data.opportunityId}`, JSON.stringify(data));
+    
+    // 更新提交状态映射
+    if (data.isSubmitted) {
+      let submittedOpportunities: {[key: string]: boolean} = {};
+      const saved = localStorage.getItem('submittedElevatorSelections');
+      if (saved) {
+        submittedOpportunities = JSON.parse(saved);
+      }
+      submittedOpportunities[data.opportunityId] = true;
+      localStorage.setItem('submittedElevatorSelections', JSON.stringify(submittedOpportunities));
+    }
   } catch (error) {
     console.error('保存电梯选型数据失败:', error);
   }
@@ -55,7 +68,7 @@ export function saveElevatorSelection(data: ElevatorSelectionData): void {
 // 从localStorage获取选型数据
 export function getElevatorSelection(opportunityId: string): ElevatorSelectionData | null {
   try {
-    const data = localStorage.getItem(`elevator-selection-${opportunityId}`);
+    const data = localStorage.getItem(`elevatorSelectionData-${opportunityId}`);
     return data ? JSON.parse(data) : null;
   } catch (error) {
     console.error('获取电梯选型数据失败:', error);
@@ -63,39 +76,55 @@ export function getElevatorSelection(opportunityId: string): ElevatorSelectionDa
   }
 }
 
+// 检查商机是否已提交选型
+export function isElevatorSelectionSubmitted(opportunityId: string): boolean {
+  try {
+    const submittedData = localStorage.getItem('submittedElevatorSelections');
+    if (!submittedData) return false;
+    
+    const submittedOpportunities: {[key: string]: boolean} = JSON.parse(submittedData);
+    return !!submittedOpportunities[opportunityId];
+  } catch (error) {
+    console.error('检查选型提交状态失败:', error);
+    return false;
+  }
+}
+
 // 检查商机是否已有选型数据
 export function hasElevatorSelection(opportunityId: string): boolean {
-  return localStorage.getItem(`elevator-selection-${opportunityId}`) !== null;
+  return localStorage.getItem(`elevatorSelectionData-${opportunityId}`) !== null;
 }
 
 // 默认选型数据
 export function getDefaultSelectionData(opportunityId: string): ElevatorSelectionData {
   return {
-    liftModel: 'LTHW Car',
-    capacity: 3000,
-    speed: 0.5,
-    travelHeight: 20,
-    carWidth: 2600,
-    carDepth: 2150,
-    carHeight: 2200,
-    cwtPosition: 'SIDE',
+    // 只设置opportunityId和lastUpdated，其他值为空
+    liftModel: '',
+    capacity: undefined as unknown as number,
+    speed: undefined as unknown as number,
+    travelHeight: undefined as unknown as number,
+    carWidth: undefined as unknown as number,
+    carDepth: undefined as unknown as number,
+    carHeight: undefined as unknown as number,
+    cwtPosition: undefined as unknown as 'SIDE' | 'REAR',
     cwtSafetyGear: false,
-    doorOpening: 'S2',
-    doorWidth: 1700,
-    doorHeight: 2100,
+    doorOpening: undefined as unknown as string,
+    doorWidth: undefined as unknown as number,
+    doorHeight: undefined as unknown as number,
     throughDoor: false,
     glassDoor: false,
     doorModel: '',
-    standard: 'EN81-1',
-    doorCenterPosition: 'Offset',
+    standard: undefined as unknown as string,
+    doorCenterPosition: undefined as unknown as string,
     floorExceedCode: false,
-    shaftTolerance: 'Normal',
-    marbleFloorThickness: 30,
-    shaftWidth: 3830,
-    shaftDepth: 2600,
-    overhead: 4650,
-    pitDepth: 1400,
+    shaftTolerance: undefined as unknown as string,
+    marbleFloorThickness: undefined as unknown as number,
+    shaftWidth: undefined as unknown as number,
+    shaftDepth: undefined as unknown as number,
+    overhead: undefined as unknown as number,
+    pitDepth: undefined as unknown as number,
     opportunityId,
-    lastUpdated: new Date().toISOString()
+    lastUpdated: new Date().toISOString(),
+    isSubmitted: false
   };
 } 

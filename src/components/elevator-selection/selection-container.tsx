@@ -47,7 +47,14 @@ export function SelectionContainer({ opportunityData, onSave }: SelectionContain
 
   // 保存选型数据
   const handleSave = () => {
-    saveElevatorSelection(selectionData);
+    // 设置提交标志和时间
+    const dataToSave = {
+      ...selectionData,
+      isSubmitted: true,
+      submittedAt: new Date().toISOString()
+    };
+    saveElevatorSelection(dataToSave);
+    setSelectionData(dataToSave); // 更新本地状态
     onSave();
   };
 

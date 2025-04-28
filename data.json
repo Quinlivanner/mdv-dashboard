@@ -1,0 +1,351 @@
+{
+
+    "LTHX":{
+        "Capacity":[
+            5000,4000,3000,2000,1600
+        ],
+        "Speed":[
+            0.5,1
+        ],
+        "Travel_Height":[
+            20,60
+        ],
+        "Car_Width":[
+            1100,1400,1500,1600,1700,1800,1900,2100,2200,2500,2800
+        ],
+        "Car_Depth":[
+            1100,1400,1600,1700,2100,2500,2800,3100
+        ],
+        "Car_Height":[
+            2100,2200,2300,2400,2500,2600,2700
+        ],
+        "CWT_Position":[
+            "SIDE","REAR"
+        ],
+        "CWT_Safety_Gear":[
+            "NO"
+        ],
+        "Door_Opening":[
+            "C2","C4","C6","S2","S3"
+        ],
+        "Door_Width":[
+            700,800,900,1000,1100,1200,1300,1600,1800,2100,2400
+        ],
+        "Door_Height":[
+            2000,2100,2200,2300,2400
+        ],
+        "Through_Door":[
+            "YES","NO"
+        ],
+        "Glass_Door":[
+            "NO","YES"
+        ],
+        "Standard":[
+            "EN81-1","EN81-20","GOST 33984.1"
+        ],
+        "Door_Center_from_Car_Center":[
+            "Offset","0"
+        ],
+        "Car_Area_Exceed_Code":[
+            "Not Allow","Local Allow"
+        ],
+        "Shaft_Tolerance":[
+            "Critical","Normal","Well to do"
+        ],
+        "Marble_Floor":[
+            20,25,30
+        ]
+        
+    },
+
+    "LTHW":{
+        "Capacity":[
+            5000,4000,3000,2000,1600
+        ],
+        "Speed":[
+            0.5,1
+        ],
+        "Travel_Height":[
+            20,60
+        ],
+        "Car_Width":[
+            1100,1400,1500,1600,1700,1800,1900,2100,2200,2500,2800
+        ],
+        "Car_Depth":[
+            1100,1400,1600,1700,2100,2500,2800,3100
+        ],
+        "Car_Height":[
+            2100,2200,2300,2400,2500,2600,2700
+        ],
+        "CWT_Position":[
+            "SIDE","REAR"
+        ],
+        "CWT_Safety_Gear":[
+            "NO"
+        ],
+        "Door_Opening":[
+            "C2","C4","C6","S2","S3"
+        ],
+        "Door_Width":[
+            700,800,900,1000,1100,1200,1300,1600,1800,2100,2400
+        ],
+        "Door_Height":[
+            2000,2100,2200,2300,2400
+        ],
+        "Through_Door":[
+            "YES","NO"
+        ],
+        "Glass_Door":[
+            "NO","YES"
+        ],
+        "Standard":[
+            "EN81-1","EN81-20","GOST 33984.1"
+        ],
+        "Door_Center_from_Car_Center":[
+            "Offset","0"
+        ],
+        "Car_Area_Exceed_Code":[
+            "Not Allow","Local Allow"
+        ],
+        "Shaft_Tolerance":[
+            "Critical","Normal","Well to do"
+        ],
+        "Marble_Floor":[
+            20,25,30
+        ]
+        
+    },
+
+    "EVIK":{
+        "Capacity":[
+            210,400,450,630,800,1000,1150,1250,1350,1600,1800,2000
+        ],
+        "Speed":[
+            1,1.5,1.6,1.75,2.0,2.5
+        ],
+        "Travel_Height":[
+            20,60
+        ],
+        "Car_Width":[
+            1100,1400,1500,1600,1700,1800,1900,2100,2200,2500,2800
+        ],
+        "Car_Depth":[
+            1100,1400,1600,1700,2100,2500,2800,3100
+        ],
+        "Car_Height":[
+            2100,2200,2300,2400,2500,2600,2700
+        ],
+        "CWT_Position":[
+            "SIDE","REAR"
+        ],
+        "CWT_Safety_Gear":[
+            "NO"
+        ],
+        "Door_Opening":[
+            "C2","C4","C6","S2","S3"
+        ],
+        "Door_Width":[
+            700,800,900,1000,1100,1200,1300,1600,1800,2100,2400
+        ],
+        "Door_Height":[
+            2000,2100,2200,2300,2400
+        ],
+        "Through_Door":[
+            "YES","NO"
+        ],
+        "Glass_Door":[
+            "NO","YES"
+        ],
+        "Standard":[
+            "EN81-1","EN81-20","GOST 33984.1"
+        ],
+        "Door_Center_from_Car_Center":[
+            "Offset","0"
+        ],
+        "Car_Area_Exceed_Code":[
+            "Not Allow","Local Allow"
+        ],
+        "Shaft_Tolerance":[
+            "Critical","Normal","Well to do"
+        ],
+        "Marble_Floor":[
+            20,25,30
+        ]
+        
+    },
+
+    "EVIN":{
+        "Capacity":[
+            210,400,450,630,800,1000,1150,1250,1350,1600,1800,2000
+        ],
+        "Speed":[
+            1,1.5,1.6,1.75
+        ],
+        "Travel_Height":[
+            20,60
+        ],
+        "Car_Width":[
+            1100,1400,1500,1600,1700,1800,1900,2100,2200,2500,2800
+        ],
+        "Car_Depth":[
+            1100,1400,1600,1700,2100,2500,2800,3100
+        ],
+        "Car_Height":[
+            2100,2200,2300,2400,2500,2600,2700
+        ],
+        "CWT_Position":[
+            "SIDE","REAR"
+        ],
+        "CWT_Safety_Gear":[
+            "NO"
+        ],
+        "Door_Opening":[
+            "C2","C4","C6","S2","S3"
+        ],
+        "Door_Width":[
+            700,800,900,1000,1100,1200,1300,1600,1800,2100,2400
+        ],
+        "Door_Height":[
+            2000,2100,2200,2300,2400
+        ],
+        "Through_Door":[
+            "YES","NO"
+        ],
+        "Glass_Door":[
+            "NO","YES"
+        ],
+        "Standard":[
+            "EN81-1","EN81-20","GOST 33984.1"
+        ],
+        "Door_Center_from_Car_Center":[
+            "Offset","0"
+        ],
+        "Car_Area_Exceed_Code":[
+            "Not Allow","Local Allow"
+        ],
+        "Shaft_Tolerance":[
+            "Critical","Normal","Well to do"
+        ],
+        "Marble_Floor":[
+            20,25,30
+        ]
+        
+    },
+
+    "LTHX Car":{
+        "Capacity":[
+            5000,4000,3000
+        ],
+        "Speed":[
+            0.5,1
+        ],
+        "Travel_Height":[
+            20,60
+        ],
+        "Car_Width":[
+            1100,1400,1500,1600,1700,1800,1900,2100,2200,2500,2800
+        ],
+        "Car_Depth":[
+            1100,1400,1600,1700,2100,2500,2800,3100
+        ],
+        "Car_Height":[
+            2100,2200,2300,2400,2500,2600,2700
+        ],
+        "CWT_Position":[
+            "SIDE","REAR"
+        ],
+        "CWT_Safety_Gear":[
+            "NO"
+        ],
+        "Door_Opening":[
+            "C2","C4","C6","S2","S3"
+        ],
+        "Door_Width":[
+            700,800,900,1000,1100,1200,1300,1600,1800,2100,2400
+        ],
+        "Door_Height":[
+            2000,2100,2200,2300,2400
+        ],
+        "Through_Door":[
+            "YES","NO"
+        ],
+        "Glass_Door":[
+            "NO","YES"
+        ],
+        "Standard":[
+            "EN81-1","EN81-20","GOST 33984.1"
+        ],
+        "Door_Center_from_Car_Center":[
+            "Offset","0"
+        ],
+        "Car_Area_Exceed_Code":[
+            "Not Allow","Local Allow"
+        ],
+        "Shaft_Tolerance":[
+            "Critical","Normal","Well to do"
+        ],
+        "Marble_Floor":[
+            20,25,30
+        ]
+        
+    },
+
+    "LTHW Car":{
+        "Capacity":[
+            5000,4000,3000
+        ],
+        "Speed":[
+            0.5,1
+        ],
+        "Travel_Height":[
+            20,60
+        ],
+        "Car_Width":[
+            1100,1400,1500,1600,1700,1800,1900,2100,2200,2500,2800
+        ],
+        "Car_Depth":[
+            1100,1400,1600,1700,2100,2500,2800,3100
+        ],
+        "Car_Height":[
+            2100,2200,2300,2400,2500,2600,2700
+        ],
+        "CWT_Position":[
+            "SIDE","REAR"
+        ],
+        "CWT_Safety_Gear":[
+            "NO"
+        ],
+        "Door_Opening":[
+            "C2","C4","C6","S2","S3"
+        ],
+        "Door_Width":[
+            700,800,900,1000,1100,1200,1300,1600,1800,2100,2400
+        ],
+        "Door_Height":[
+            2000,2100,2200,2300,2400
+        ],
+        "Through_Door":[
+            "YES","NO"
+        ],
+        "Glass_Door":[
+            "NO","YES"
+        ],
+        "Standard":[
+            "EN81-1","EN81-20","GOST 33984.1"
+        ],
+        "Door_Center_from_Car_Center":[
+            "Offset","0"
+        ],
+        "Car_Area_Exceed_Code":[
+            "Not Allow","Local Allow"
+        ],
+        "Shaft_Tolerance":[
+            "Critical","Normal","Well to do"
+        ],
+        "Marble_Floor":[
+            20,25,30
+        ]
+        
+    }
+
+}
