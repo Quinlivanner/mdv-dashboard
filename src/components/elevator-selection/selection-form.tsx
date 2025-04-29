@@ -384,514 +384,558 @@ export function SelectionForm({ data, onChange }: SelectionFormProps) {
   };
 
   return (
-    <div className="space-y-2">
-      {/* 页面右上角的固定按钮 */}
-      <div className="fixed top-4 right-4 flex gap-2 z-50">
+    <div className="min-h-screen bg-gray-50 p-6">
+      {/* 固定的操作按钮组 */}
+      <div className="fixed top-4 right-4 flex gap-3 z-50">
         <Button 
           onClick={handleSave}
-          className="bg-white text-[#e26b0a] hover:bg-gray-100 flex items-center gap-1 shadow-md"
-          size="sm"
+          className="bg-[#00B4AA] text-white hover:bg-[#009B92] flex items-center gap-2 shadow-lg transition-all duration-200"
+          size="default"
         >
           <Save className="h-4 w-4" />
-          保存
+          提交选型
         </Button>
         <Button 
           onClick={handleReset}
-          className="bg-gray-700 text-white hover:bg-gray-800 flex items-center gap-1 shadow-md"
-          size="sm"
+          className="bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 flex items-center gap-2 shadow-lg transition-all duration-200"
+          size="default"
         >
           <RefreshCcw className="h-4 w-4" />
-          重置
+          重置选型
         </Button>
       </div>
 
-      {/* 输入参数标题栏 */}
-      <div className="flex items-center justify-between bg-[#e26b0a] text-white p-3 px-4 rounded-t-md">
-        <h2 className="text-lg font-semibold">信息录入</h2>
-      </div>
-
-      {/* ENGINEERING YOUR NEED 标语 */}
-      <div className="bg-white text-[#e26b0a] font-bold text-sm px-4 py-1 border-x border-gray-200">
-        ENGINEERING YOUR NEED, KNOW YOU MORE TOGETHER       
-      </div>
-
-      {/* 输入参数表格 */}
-      <div className="grid grid-cols-4 gap-3 p-4 border border-gray-200 rounded-b-md bg-gray-50">
-        {/* 第一行 */}
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Lift Model</Label>
-          <Select
-            value={data.liftModel || ''}
-            onValueChange={(value) => handleChange('liftModel', value)}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100' : 'bg-blue-50'} ${errors.liftModel ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.liftModel}
-            >
-              <SelectValue placeholder="选择电梯型号">
-                {renderSelectedValue(data.liftModel, "选择电梯型号")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {renderLiftModelOptions()}
-            </SelectContent>
-          </Select>
-          {errors.liftModel && <p className="text-xs text-red-500 mt-1">{errors.liftModel}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Capacity <span className='text-[#e26b0a]'>Q(kg)</span></Label>
-          <Select
-            value={data.capacity?.toString() || ''}
-            onValueChange={(value) => handleChange('capacity', Number(value))}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.capacity ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.capacity}
-            >
-              <SelectValue placeholder="选择">
-                {renderSelectedValue(data.capacity, "选择")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Capacity?.map((capacity: number) => (
-                <SelectItem key={capacity} value={capacity.toString()}>{capacity}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.capacity && <p className="text-xs text-red-500 mt-1">{errors.capacity}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Speed <span className='text-[#e26b0a]'>V(m/s)</span></Label>
-          <Select
-            value={data.speed?.toString() || ''}
-            onValueChange={(value) => handleChange('speed', Number(value))}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.speed ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.speed}
-            >
-              <SelectValue placeholder="选择">
-                {renderSelectedValue(data.speed, "选择")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Speed?.map((speed: number) => (
-                <SelectItem key={speed} value={speed.toString()}>{speed}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.speed && <p className="text-xs text-red-500 mt-1">{errors.speed}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Travel Height <span className='text-[#e26b0a]'>R(m)</span></Label>
-          <Select
-            value={data.travelHeight?.toString() || ''}
-            onValueChange={(value) => handleChange('travelHeight', Number(value))}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.travelHeight ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.travelHeight}
-            >
-              <SelectValue placeholder="选择">
-                {renderSelectedValue(data.travelHeight, "选择")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Travel_Height?.map((height: number) => (
-                <SelectItem key={height} value={height.toString()}>{height}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.travelHeight && <p className="text-xs text-red-500 mt-1">{errors.travelHeight}</p>}
-        </div>
-        
-        
-        {/* 第二行 */}
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Car Width <span className='text-[#e26b0a]'>CW(mm)</span></Label>
-          <Select
-            value={data.carWidth?.toString() || ''}
-            onValueChange={(value) => handleChange('carWidth', Number(value))}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.carWidth ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.carWidth}
-            >
-              <SelectValue placeholder="选择">
-                {renderSelectedValue(data.carWidth, "选择")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Car_Width?.map((width: number) => (
-                <SelectItem key={width} value={width.toString()}>{width}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.carWidth && <p className="text-xs text-red-500 mt-1">{errors.carWidth}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Car Depth <span className='text-[#e26b0a]'>CD(mm)</span></Label>
-          <Select
-            value={data.carDepth?.toString() || ''}
-            onValueChange={(value) => handleChange('carDepth', Number(value))}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.carDepth ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.carDepth}
-            >
-              <SelectValue placeholder="选择">
-                {renderSelectedValue(data.carDepth, "选择")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Car_Depth?.map((depth: number) => (
-                <SelectItem key={depth} value={depth.toString()}>{depth}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.carDepth && <p className="text-xs text-red-500 mt-1">{errors.carDepth}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Car Height <span className='text-[#e26b0a]'>CH(mm)</span></Label>
-          <Select
-            value={data.carHeight?.toString() || ''}
-            onValueChange={(value) => handleChange('carHeight', Number(value))}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.carHeight ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.carHeight}
-            >
-              <SelectValue placeholder="选择">
-                {renderSelectedValue(data.carHeight, "选择")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Car_Height?.map((height: number) => (
-                <SelectItem key={height} value={height.toString()}>{height}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.carHeight && <p className="text-xs text-red-500 mt-1">{errors.carHeight}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">CWT Position</Label>
-          <Select
-            value={data.cwtPosition || ''}
-            onValueChange={(value) => handleChange('cwtPosition', value as 'SIDE' | 'REAR')}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.cwtPosition ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.cwtPosition}
-            >
-              <SelectValue placeholder="选择">
-                {renderSelectedValue(data.cwtPosition, "选择")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options?.CWT_Position?.map((position: string) => (
-                <SelectItem key={position} value={position}>{position}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.cwtPosition && <p className="text-xs text-red-500 mt-1">{errors.cwtPosition}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">CWT Safety Gear</Label>
-          <Select
-            value={data.cwtSafetyGear ? 'YES' : 'NO'}
-            onValueChange={(value) => handleChange('cwtSafetyGear', value === 'YES')}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.cwtSafetyGear ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.cwtSafetyGear}
-            >
-              <SelectValue placeholder="选择" />
-            </SelectTrigger>
-            <SelectContent>
-              {options?.CWT_Safety_Gear?.map((option: string) => (
-                <SelectItem key={option} value={option}>{option}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.cwtSafetyGear && <p className="text-xs text-red-500 mt-1">{errors.cwtSafetyGear}</p>}
-        </div>
-        
-        
-        {/* 第三行 */}
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Door Opening</Label>
-          <Select
-            value={data.doorOpening || ''}
-            onValueChange={(value) => handleChange('doorOpening', value)}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.doorOpening ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.doorOpening}
-            >
-              <SelectValue placeholder="选择">
-                {renderSelectedValue(data.doorOpening, "选择")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Door_Opening?.map((opening: string) => (
-                <SelectItem key={opening} value={opening}>{opening}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.doorOpening && <p className="text-xs text-red-500 mt-1">{errors.doorOpening}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Door Width <span className='text-[#e26b0a]'>DW(mm)</span></Label>
-          <Select
-            value={data.doorWidth?.toString() || ''}
-            onValueChange={(value) => handleChange('doorWidth', Number(value))}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.doorWidth ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.doorWidth}
-            >
-              <SelectValue placeholder="选择">
-                {renderSelectedValue(data.doorWidth, "选择")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Door_Width?.map((width: number) => (
-                <SelectItem key={width} value={width.toString()}>{width}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.doorWidth && <p className="text-xs text-red-500 mt-1">{errors.doorWidth}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Door Height <span className='text-[#e26b0a]'>DH(mm)</span></Label>
-          <Select
-            value={data.doorHeight?.toString() || ''}
-            onValueChange={(value) => handleChange('doorHeight', Number(value))}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.doorHeight ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.doorHeight}
-            >
-              <SelectValue placeholder="选择">
-                {renderSelectedValue(data.doorHeight, "选择")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Door_Height?.map((height: number) => (
-                <SelectItem key={height} value={height.toString()}>{height}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.doorHeight && <p className="text-xs text-red-500 mt-1">{errors.doorHeight}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Through Door</Label>
-          <Select
-            value={data.throughDoor ? 'YES' : 'NO'}
-            onValueChange={(value) => handleChange('throughDoor', value === 'YES')}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.throughDoor ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.throughDoor}
-            >
-              <SelectValue placeholder="选择" />
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Through_Door?.map((option: string) => (
-                <SelectItem key={option} value={option}>{option}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.throughDoor && <p className="text-xs text-red-500 mt-1">{errors.throughDoor}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Glass Door <span className='text-[#e26b0a]'>C2/S2</span></Label>
-          <Select
-            value={data.glassDoor ? 'YES' : 'NO'}
-            onValueChange={(value) => handleChange('glassDoor', value === 'YES')}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.glassDoor ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.glassDoor}
-            >
-              <SelectValue placeholder="选择" />
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Glass_Door?.map((option: string) => (
-                <SelectItem key={option} value={option}>{option}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.glassDoor && <p className="text-xs text-red-500 mt-1">{errors.glassDoor}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Door Model</Label>
-          <div className="bg-gray-100 p-2 rounded flex items-center justify-center text-gray-500">
-            <span className="text-center">未启用</span>
+      {/* 主要内容区域 */}
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* 头部信息 */}
+        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+          <div className="bg-gradient-to-r from-[#00B4AA] to-[#0092D8] text-white p-6">
+            <h2 className="text-2xl font-semibold">电梯选型</h2>
+            <p className="mt-2 text-white/80">ENGINEERING YOUR NEED, KNOW YOU MORE TOGETHER</p>
           </div>
         </div>
 
-
-        {/* 第四行前添加虚线分隔 */}
-        <div className="col-span-4 my-3 border-t border-dashed border-[#e26b0a]"></div>
-        
-        {/* 第四行 */}
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Standard</Label>
-          <Select
-            value={data.standard || ''}
-            onValueChange={(value) => handleChange('standard', value)}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.standard ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.standard}
-            >
-              <SelectValue placeholder="选择">
-                {renderSelectedValue(data.standard, "选择")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Standard?.map((std: string) => (
-                <SelectItem key={std} value={std}>{std}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.standard && <p className="text-xs text-red-500 mt-1">{errors.standard}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Door Center from Car Center</Label>
-          <Select
-            value={data.doorCenterPosition || ''}
-            onValueChange={(value) => handleChange('doorCenterPosition', value)}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.doorCenterPosition ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.doorCenterPosition}
-            >
-              <SelectValue placeholder="选择">
-                {renderSelectedValue(data.doorCenterPosition, "选择")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Door_Center_from_Car_Center?.map((pos: string) => (
-                <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.doorCenterPosition && <p className="text-xs text-red-500 mt-1">{errors.doorCenterPosition}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Car Area Exceed the Code</Label>
-          <Select
-            value={data.floorExceedCode ? 'Local Allow' : 'Not Allow'}
-            onValueChange={(value) => handleChange('floorExceedCode', value === 'Local Allow')}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.floorExceedCode ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.floorExceedCode}
-            >
-              <SelectValue placeholder="选择" />
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Car_Area_Exceed_Code?.map((option: string) => (
-                <SelectItem key={option} value={option}>{option}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.floorExceedCode && <p className="text-xs text-red-500 mt-1">{errors.floorExceedCode}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Shaft Tolerance</Label>
-          <Select
-            value={data.shaftTolerance || ''}
-            onValueChange={(value) => handleChange('shaftTolerance', value)}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.shaftTolerance ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.shaftTolerance}
-            >
-              <SelectValue placeholder="选择">
-                {renderSelectedValue(data.shaftTolerance, "选择")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Shaft_Tolerance?.map((tolerance: string) => (
-                <SelectItem key={tolerance} value={tolerance}>{tolerance}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.shaftTolerance && <p className="text-xs text-red-500 mt-1">{errors.shaftTolerance}</p>}
-        </div>
-        
-        <div className="col-span-1 text-center">
-          <Label className="block text-sm font-medium mb-1">Marble Floor <span className='text-[#e26b0a]'>(mm)</span></Label>
-          <Select
-            value={data.marbleFloorThickness?.toString() || ''}
-            onValueChange={(value) => handleChange('marbleFloorThickness', Number(value))}
-            disabled={!canEditOtherFields}
-          >
-            <SelectTrigger 
-              className={`relative ${!canEditOtherFields ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-50'} ${errors.marbleFloorThickness ? 'border-red-500' : ''}`}
-              aria-invalid={!!errors.marbleFloorThickness}
-            >
-              <SelectValue placeholder="选择">
-                {renderSelectedValue(data.marbleFloorThickness, "选择")}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options?.Marble_Floor?.map((thickness: number) => (
-                <SelectItem key={thickness} value={thickness.toString()}>{thickness}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {errors.marbleFloorThickness && <p className="text-xs text-red-500 mt-1">{errors.marbleFloorThickness}</p>}
-        </div>
-        
-      </div>
-      
-      {/* 注释提示 */}
-      <div className={`flex items-start gap-2 p-3 ${showWarning ? 'bg-red-50 border border-red-300' : 'hidden'} rounded-md mt-1`}>
+        {/* 警告信息 */}
         {showWarning && (
-          <AlertTriangle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-start gap-3">
+            <AlertTriangle className="h-5 w-5 text-amber-500 mt-0.5" />
+            <div>
+              <h3 className="font-medium text-amber-800">注意</h3>
+              <p className="text-amber-700 text-sm mt-1">当前选择的轿厢面积超出标准规范，请确认是否继续。</p>
+            </div>
+          </div>
         )}
-        <p className={`text-xs/6 ${showWarning ? 'text-red-600 font-medium' : 'hidden'}`}>
-          Customer shall assure no problem on local government/3rd party inspection approval. In no event shall Winone's liability.
-        </p>
+
+        {/* 表单内容 - 基本参数 */}
+        <div className="bg-white rounded-lg shadow-sm p-6">
+          <h3 className="text-lg font-medium text-gray-900 mb-6">基本参数</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Lift Model */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700">
+                Lift Model
+                <span className="text-[#00B4AA] ml-1">*</span>
+              </Label>
+              <Select
+                value={data.liftModel || ''}
+                onValueChange={(value) => handleChange('liftModel', value)}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.liftModel ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择电梯型号" />
+                </SelectTrigger>
+                <SelectContent>
+                  {renderLiftModelOptions()}
+                </SelectContent>
+              </Select>
+              {errors.liftModel && (
+                <p className="text-xs text-red-500 mt-1">{errors.liftModel}</p>
+              )}
+            </div>
+
+            {/* Capacity */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700 flex items-center justify-between">
+                <span>Capacity</span>
+                <span className="text-[#00B4AA] text-xs">Q(kg)</span>
+              </Label>
+              <Select
+                value={data.capacity?.toString() || ''}
+                onValueChange={(value) => handleChange('capacity', Number(value))}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.capacity ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择载重" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Capacity?.map((capacity: number) => (
+                    <SelectItem key={capacity} value={capacity.toString()}>{capacity}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.capacity && (
+                <p className="text-xs text-red-500 mt-1">{errors.capacity}</p>
+              )}
+            </div>
+
+            {/* Speed */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700 flex items-center justify-between">
+                <span>Speed</span>
+                <span className="text-[#00B4AA] text-xs">V(m/s)</span>
+              </Label>
+              <Select
+                value={data.speed?.toString() || ''}
+                onValueChange={(value) => handleChange('speed', Number(value))}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.speed ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择速度" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Speed?.map((speed: number) => (
+                    <SelectItem key={speed} value={speed.toString()}>{speed}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.speed && (
+                <p className="text-xs text-red-500 mt-1">{errors.speed}</p>
+              )}
+            </div>
+
+            {/* Travel Height */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700 flex items-center justify-between">
+                <span>Travel Height</span>
+                <span className="text-[#00B4AA] text-xs">R(m)</span>
+              </Label>
+              <Select
+                value={data.travelHeight?.toString() || ''}
+                onValueChange={(value) => handleChange('travelHeight', Number(value))}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.travelHeight ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择行程" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Travel_Height?.map((height: number) => (
+                    <SelectItem key={height} value={height.toString()}>{height}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.travelHeight && (
+                <p className="text-xs text-red-500 mt-1">{errors.travelHeight}</p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* 表单内容 - 轿厢参数 */}
+        <div className="bg-white rounded-lg shadow-sm p-6">
+          <h3 className="text-lg font-medium text-gray-900 mb-6">轿厢参数</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Car Width */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700 flex items-center justify-between">
+                <span>Car Width</span>
+                <span className="text-[#00B4AA] text-xs">CW(mm)</span>
+              </Label>
+              <Select
+                value={data.carWidth?.toString() || ''}
+                onValueChange={(value) => handleChange('carWidth', Number(value))}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.carWidth ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择宽度" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Car_Width?.map((width: number) => (
+                    <SelectItem key={width} value={width.toString()}>{width}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.carWidth && (
+                <p className="text-xs text-red-500 mt-1">{errors.carWidth}</p>
+              )}
+            </div>
+
+            {/* Car Depth */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700 flex items-center justify-between">
+                <span>Car Depth</span>
+                <span className="text-[#00B4AA] text-xs">CD(mm)</span>
+              </Label>
+              <Select
+                value={data.carDepth?.toString() || ''}
+                onValueChange={(value) => handleChange('carDepth', Number(value))}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.carDepth ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择深度" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Car_Depth?.map((depth: number) => (
+                    <SelectItem key={depth} value={depth.toString()}>{depth}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.carDepth && (
+                <p className="text-xs text-red-500 mt-1">{errors.carDepth}</p>
+              )}
+            </div>
+
+            {/* Car Height */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700 flex items-center justify-between">
+                <span>Car Height</span>
+                <span className="text-[#00B4AA] text-xs">CH(mm)</span>
+              </Label>
+              <Select
+                value={data.carHeight?.toString() || ''}
+                onValueChange={(value) => handleChange('carHeight', Number(value))}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.carHeight ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择高度" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Car_Height?.map((height: number) => (
+                    <SelectItem key={height} value={height.toString()}>{height}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.carHeight && (
+                <p className="text-xs text-red-500 mt-1">{errors.carHeight}</p>
+              )}
+            </div>
+
+            {/* CWT Position */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700">CWT Position</Label>
+              <Select
+                value={data.cwtPosition || ''}
+                onValueChange={(value) => handleChange('cwtPosition', value as 'SIDE' | 'REAR')}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.cwtPosition ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择位置" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.CWT_Position?.map((position: string) => (
+                    <SelectItem key={position} value={position}>{position}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.cwtPosition && (
+                <p className="text-xs text-red-500 mt-1">{errors.cwtPosition}</p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* 表单内容 - 门系统参数 */}
+        <div className="bg-white rounded-lg shadow-sm p-6">
+          <h3 className="text-lg font-medium text-gray-900 mb-6">门系统参数</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Door Opening */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700">Door Opening</Label>
+              <Select
+                value={data.doorOpening || ''}
+                onValueChange={(value) => handleChange('doorOpening', value)}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.doorOpening ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择开门方式" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Door_Opening?.map((opening: string) => (
+                    <SelectItem key={opening} value={opening}>{opening}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.doorOpening && (
+                <p className="text-xs text-red-500 mt-1">{errors.doorOpening}</p>
+              )}
+            </div>
+
+            {/* Door Width */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700 flex items-center justify-between">
+                <span>Door Width</span>
+                <span className="text-[#00B4AA] text-xs">DW(mm)</span>
+              </Label>
+              <Select
+                value={data.doorWidth?.toString() || ''}
+                onValueChange={(value) => handleChange('doorWidth', Number(value))}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.doorWidth ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择门宽" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Door_Width?.map((width: number) => (
+                    <SelectItem key={width} value={width.toString()}>{width}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.doorWidth && (
+                <p className="text-xs text-red-500 mt-1">{errors.doorWidth}</p>
+              )}
+            </div>
+
+            {/* Door Height */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700 flex items-center justify-between">
+                <span>Door Height</span>
+                <span className="text-[#00B4AA] text-xs">DH(mm)</span>
+              </Label>
+              <Select
+                value={data.doorHeight?.toString() || ''}
+                onValueChange={(value) => handleChange('doorHeight', Number(value))}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.doorHeight ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择门高" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Door_Height?.map((height: number) => (
+                    <SelectItem key={height} value={height.toString()}>{height}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.doorHeight && (
+                <p className="text-xs text-red-500 mt-1">{errors.doorHeight}</p>
+              )}
+            </div>
+
+            {/* Through Door */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700">Through Door</Label>
+              <Select
+                value={data.throughDoor ? 'YES' : 'NO'}
+                onValueChange={(value) => handleChange('throughDoor', value === 'YES')}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.throughDoor ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择是否" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Through_Door?.map((option: string) => (
+                    <SelectItem key={option} value={option}>{option}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.throughDoor && (
+                <p className="text-xs text-red-500 mt-1">{errors.throughDoor}</p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* 表单内容 - 其他参数 */}
+        <div className="bg-white rounded-lg shadow-sm p-6">
+          <h3 className="text-lg font-medium text-gray-900 mb-6">其他参数</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Glass Door */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700 flex items-center justify-between">
+                <span>Glass Door</span>
+                <span className="text-[#00B4AA] text-xs">C2/S2</span>
+              </Label>
+              <Select
+                value={data.glassDoor ? 'YES' : 'NO'}
+                onValueChange={(value) => handleChange('glassDoor', value === 'YES')}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.glassDoor ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择是否" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Glass_Door?.map((option: string) => (
+                    <SelectItem key={option} value={option}>{option}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.glassDoor && (
+                <p className="text-xs text-red-500 mt-1">{errors.glassDoor}</p>
+              )}
+            </div>
+
+            {/* Standard */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700">Standard</Label>
+              <Select
+                value={data.standard || ''}
+                onValueChange={(value) => handleChange('standard', value)}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.standard ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择标准" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Standard?.map((standard: string) => (
+                    <SelectItem key={standard} value={standard}>{standard}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.standard && (
+                <p className="text-xs text-red-500 mt-1">{errors.standard}</p>
+              )}
+            </div>
+
+            {/* Door Center Position */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700">Door Center Position</Label>
+              <Select
+                value={data.doorCenterPosition || ''}
+                onValueChange={(value) => handleChange('doorCenterPosition', value)}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.doorCenterPosition ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择位置" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Door_Center_from_Car_Center?.map((position: string) => (
+                    <SelectItem key={position} value={position}>{position}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.doorCenterPosition && (
+                <p className="text-xs text-red-500 mt-1">{errors.doorCenterPosition}</p>
+              )}
+            </div>
+
+            {/* Shaft Tolerance */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700">Shaft Tolerance</Label>
+              <Select
+                value={data.shaftTolerance || ''}
+                onValueChange={(value) => handleChange('shaftTolerance', value)}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.shaftTolerance ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择公差" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Shaft_Tolerance?.map((tolerance: string) => (
+                    <SelectItem key={tolerance} value={tolerance}>{tolerance}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.shaftTolerance && (
+                <p className="text-xs text-red-500 mt-1">{errors.shaftTolerance}</p>
+              )}
+            </div>
+            
+            {/* Marble Floor Thickness */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700">Marble Floor Thickness</Label>
+              <Select
+                value={data.marbleFloorThickness?.toString() || ''}
+                onValueChange={(value) => handleChange('marbleFloorThickness', Number(value))}
+                disabled={!canEditOtherFields}
+              >
+                <SelectTrigger 
+                  className={`w-full transition-colors duration-200
+                    ${!canEditOtherFields ? 'bg-gray-50 cursor-not-allowed' : 'bg-white hover:bg-gray-50'} 
+                    ${errors.marbleFloorThickness ? 'border-red-300 ring-red-100' : 'border-gray-200 hover:border-[#00B4AA]'}
+                  `}
+                >
+                  <SelectValue placeholder="选择厚度" />
+                </SelectTrigger>
+                <SelectContent>
+                  {options?.Marble_Floor?.map((thickness: number) => (
+                    <SelectItem key={thickness} value={thickness.toString()}>{thickness}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.marbleFloorThickness && (
+                <p className="text-xs text-red-500 mt-1">{errors.marbleFloorThickness}</p>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
-      
-      
     </div>
   );
 } 

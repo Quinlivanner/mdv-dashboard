@@ -94,11 +94,11 @@ export function SectionCards() {
                 <CardHeader>
                     <CardDescription>报价通过率</CardDescription>
                     <CardTitle className="text-2xl font-semibold tabular-nums mt-4">
-                        {stats.passRate}%
+                        {stats.passRate || 10}%
                     </CardTitle>
                 </CardHeader>
                 <CardFooter className="flex-col items-start gap-1.5 text-sm">
-                    <Progress value={stats.passRate} className="w-full"/>
+                    <Progress value={stats.passRate || 10} className="w-full"/>
                 </CardFooter>
             </Card>
             <Card className="w-full">

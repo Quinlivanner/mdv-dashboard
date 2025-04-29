@@ -285,7 +285,7 @@ const initLocalStorage = () => {
         salesName: "李四",
         salesAssistantName: "赵六",
         priorityName: "高",
-        progress: 85,
+        progress: 75,
         status: "合同录入",
         createdAt: today.toISOString(),
         expectedSignDate: nextMonth.toISOString(),

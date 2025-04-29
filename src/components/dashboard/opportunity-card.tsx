@@ -2,7 +2,7 @@
 
 import {Badge} from "../ui/badge";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "../ui/card";
-import {CheckCircle2, Clock3, Loader2, Calculator, Edit, ArrowRight, Building, Phone, Mail, MapPin,Captions, ChevronDown, Pencil, MoreHorizontal} from "lucide-react";
+import {CheckCircle2, Clock3, Loader2, Calculator, Edit, ArrowRight, Building, Phone, Mail, MapPin,Captions, ChevronDown, Pencil, MoreHorizontal, CircleDashed, ReceiptText, Download} from "lucide-react";
 import {Progress} from "../ui/progress";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
@@ -17,67 +17,68 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { hasElevatorSelection, isElevatorSelectionSubmitted } from '@/lib/elevator-selection';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
-// 定义优先级图标和样式
+// 定义优先级图标和样式 - 使用 Midea 颜色
 const priorityIcons = {
-    '高': <Badge variant="outline" className="ml-4 bg-[#FEF2F2] text-[#B45308] border-[#FECACA] text-xs">
+    '高': <Badge variant="outline" className="ml-4 bg-[#F8BBD0]/50 text-[#E91E63] border-[#F8BBD0] text-xs">
         高
     </Badge>,
-    '中': <Badge variant="outline" className="ml-4 bg-[#FFFBEB] text-[#B91B1C] border-[#FECACA] text-xs">
+    '中': <Badge variant="outline" className="ml-4 bg-[#FFECB3]/50 text-[#FF9800] border-[#FFECB3] text-xs">
         中
     </Badge>,
-    '低': <Badge variant="outline" className="ml-4 bg-[#D1FAE5] text-[#065F46] border-[#34D399] text-xs"> 低 
+    '低': <Badge variant="outline" className="ml-4 bg-[#B2DFDB]/50 text-[#00B4AA] border-[#B2DFDB] text-xs"> 低 
     </Badge>
 }
 
-// 进度状态
+// 进度状态 - 使用 Midea 颜色
 const progressStatus = {
-    inProgress: <Badge variant="outline" className="ml-4 bg-[#FFFBEB] text-[#B45308] border-[#FDE68A] text-xs">
-        <Clock3 className="w-4 h-4 mr-1"/>
+    inProgress: <Badge variant="outline" className="ml-4 bg-[#FFECB3]/50 text-[#FF9800] border-[#FFECB3] text-xs">
+        <Clock3 className="w-4 h-4 mr-1 text-[#FF9800]"/>
         进行中
     </Badge>,
-    completed: <Badge variant="outline" className="ml-4 bg-[#D1FAE5] text-[#065F46] border-[#34D399] text-xs">
-        <CheckCircle2 className="w-4 h-4 mr-1"/>
+    completed: <Badge variant="outline" className="ml-4 bg-[#B2DFDB]/50 text-[#00B4AA] border-[#B2DFDB] text-xs">
+        <CheckCircle2 className="w-4 h-4 mr-1 text-[#00B4AA]"/>
         已完成
     </Badge>
 }
 
-// 流程阶段状态
+// 流程阶段状态 - 使用 Midea 颜色
 const stageStatus = {
-    "需求收集": <Badge variant="outline" className="bg-blue-50 text-blue-600 border-blue-100 text-xs">
+    "需求收集": <Badge variant="outline" className="bg-[#B2EBF2]/50 text-[#0092D8] border-[#B2EBF2] text-xs">
         需求收集
     </Badge>,
-    "方案设计": <Badge variant="outline" className="bg-purple-50 text-purple-600 border-purple-100 text-xs">
+    "方案设计": <Badge variant="outline" className="bg-[#D1C4E9]/50 text-[#8353B4] border-[#D1C4E9] text-xs">
         方案设计
     </Badge>,
-    "技术交流": <Badge variant="outline" className="bg-amber-50 text-amber-600 border-amber-100 text-xs">
+    "技术交流": <Badge variant="outline" className="bg-[#FFF9C4]/50 text-[#FFC107] border-[#FFF9C4] text-xs">
         技术交流
     </Badge>,
-    "初步报价": <Badge variant="outline" className="bg-rose-50 text-rose-600 border-rose-100 text-xs">
+    "初步报价": <Badge variant="outline" className="bg-[#F8BBD0]/50 text-[#E91E63] border-[#F8BBD0] text-xs">
         初步报价
     </Badge>,
-    "方案优化": <Badge variant="outline" className="bg-green-50 text-green-600 border-green-100 text-xs">
+    "方案优化": <Badge variant="outline" className="bg-[#B2DFDB]/50 text-[#00B4AA] border-[#B2DFDB] text-xs">
         方案优化
     </Badge>,
-    "投标确认": <Badge variant="outline" className="bg-indigo-50 text-indigo-600 border-indigo-100 text-xs">
+    "投标确认": <Badge variant="outline" className="bg-[#D1C4E9]/50 text-[#8353B4] border-[#D1C4E9] text-xs">
         投标确认
     </Badge>,
-    "商务谈判": <Badge variant="outline" className="bg-emerald-50 text-emerald-600 border-emerald-100 text-xs">
+    "商务谈判": <Badge variant="outline" className="bg-[#B2DFDB]/50 text-[#00B4AA] border-[#B2DFDB] text-xs">
         商务谈判
     </Badge>,
-    "合同签订": <Badge variant="outline" className="bg-cyan-50 text-cyan-600 border-cyan-100 text-xs">
+    "合同签订": <Badge variant="outline" className="bg-[#B2EBF2]/50 text-[#0092D8] border-[#B2EBF2] text-xs">
         合同签订
     </Badge>,
-    "设计确认": <Badge variant="outline" className="bg-fuchsia-50 text-fuchsia-600 border-fuchsia-100 text-xs">
+    "设计确认": <Badge variant="outline" className="bg-[#F8BBD0]/50 text-[#E91E63] border-[#F8BBD0] text-xs">
         设计确认
     </Badge>,
-    "生产制造": <Badge variant="outline" className="bg-lime-50 text-lime-600 border-lime-100 text-xs">
+    "生产制造": <Badge variant="outline" className="bg-[#FFF9C4]/50 text-[#FFC107] border-[#FFF9C4] text-xs">
         生产制造
     </Badge>,
-    "安装交付": <Badge variant="outline" className="bg-orange-50 text-orange-600 border-orange-100 text-xs">
+    "安装交付": <Badge variant="outline" className="bg-[#FFECB3]/50 text-[#FF9800] border-[#FFECB3] text-xs">
         安装交付
     </Badge>,
-    "售后服务": <Badge variant="outline" className="bg-teal-50 text-teal-600 border-teal-100 text-xs">
+    "售后服务": <Badge variant="outline" className="bg-[#B2DFDB]/50 text-[#00B4AA] border-[#B2DFDB] text-xs">
         售后服务
     </Badge>
 }
@@ -144,6 +145,7 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
     const [openProgressDialog, setOpenProgressDialog] = useState(false);
     const [openNextStageDialog, setOpenNextStageDialog] = useState(false);
     const [openEditDialog, setOpenEditDialog] = useState(false);
+    const [openContractDialog, setOpenContractDialog] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isSelectionSubmitted, setIsSelectionSubmitted] = useState(false);
 
@@ -156,6 +158,55 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
     useEffect(() => {
         // 检查是否已提交选型
         setIsSelectionSubmitted(isElevatorSelectionSubmitted(opportunityData.id));
+        
+        // 为第一个商机（万科城市之光，ID: 1001）设置一个默认的已提交电梯选型
+        if (opportunityData.id === "1001" && !isElevatorSelectionSubmitted("1001")) {
+            // 创建默认的电梯选型数据
+            const defaultElevatorSelection = {
+                liftModel: "MK8000",
+                capacity: 1000,
+                speed: 1.75,
+                travelHeight: 60,
+                carWidth: 1600,
+                carDepth: 1500,
+                carHeight: 2300,
+                cwtPosition: "SIDE",
+                cwtSafetyGear: false,
+                doorOpening: "CO",
+                doorWidth: 900,
+                doorHeight: 2100,
+                throughDoor: false,
+                glassDoor: false,
+                standard: "EN81",
+                doorCenterPosition: "CENTERED",
+                floorExceedCode: false,
+                shaftTolerance: "NORMAL",
+                marbleFloorThickness: 40,
+                isSubmitted: true,
+                submittedAt: new Date().toISOString()
+            };
+            
+            // 保存到localStorage
+            localStorage.setItem(`elevatorSelectionData-1001`, JSON.stringify(defaultElevatorSelection));
+            
+            // 更新提交状态映射表
+            let submittedOpportunities: {[key: string]: boolean} = {};
+            try {
+                const saved = localStorage.getItem('submittedElevatorSelections');
+                if (saved) {
+                    submittedOpportunities = JSON.parse(saved);
+                }
+            } catch (e) {
+                console.error('读取提交状态失败', e);
+            }
+            
+            // 添加1001商机的提交状态
+            submittedOpportunities["1001"] = true;
+            localStorage.setItem('submittedElevatorSelections', JSON.stringify(submittedOpportunities));
+            
+            // 重新检查状态
+            setIsSelectionSubmitted(true);
+        }
     }, [opportunityData.id]);
 
     // 进度表单
@@ -332,6 +383,27 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
         router.push(`/dashboard/opportunity/${opportunityData.id}/elevator-selection`);
     };
 
+    // 前往报价页面
+    const handleGoToQuotation = () => {
+        router.push(`/dashboard/opportunity/${opportunityData.id}/quotation`);
+    };
+
+    // 处理查看合同
+    const handleViewContract = () => {
+        setOpenContractDialog(true);
+    };
+
+    // 处理下载合同
+    const handleDownloadContract = () => {
+        // 创建一个链接指向PDF文件
+        const link = document.createElement('a');
+        link.href = '/data/SCAN - 越南京东方整机二期项目设备合同-货梯.pdf';
+        link.download = 'SCAN - 越南京东方整机二期项目设备合同-货梯.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     return (
         <>
             <Card className="shadow-md w-full gap-2 h-full flex flex-col justify-between transition-transform hover:scale-[0.99] @container/card">
@@ -349,11 +421,32 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
                     <CardDescription>
                         <div className="flex flex-row items-center text-xs">
                             <span className="text-sm @3xl:text-xs font-medium mr-1">项目号:</span>
-                            <span className="text-sm @3xl:text-xs font-bold">{opportunityData.projectCode}</span>
-                            <span className="mx-2 text-muted-foreground">|</span>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        {/* 保留前10个字符..补全*/}
+                                        <span className="text-sm @3xl:text-xs font-bold">{opportunityData.projectCode.slice(0, 10)}...</span>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                    <span className="text-sm @3xl:text-xs font-bold">{opportunityData.projectCode}</span>
+                                    </TooltipContent>
+                                </Tooltip>
+                                </TooltipProvider>
+                            {/* <span className="text-sm @3xl:text-xs font-bold">{opportunityData.projectCode}</span> */}
+                            <span className="mx-2 text-[#E8E8E8]">|</span>
                             <span className="text-sm @3xl:text-xs font-medium mr-1">客户:</span>
-                            <span className="text-sm @3xl:text-xs">{opportunityData.customerName}</span>
-                            <span className="mx-2 text-muted-foreground">|</span>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        {/* 保留前10个字符 */}
+                                        <span className="text-sm @3xl:text-xs">{opportunityData.customerName.slice(0, 10)}...</span>
+                                        </TooltipTrigger>
+                                    <TooltipContent>
+                                    <span className="text-sm @3xl:text-xs">{opportunityData.customerName}</span>
+                                    </TooltipContent>
+                                </Tooltip>
+                                </TooltipProvider>
+                            <span className="mx-2 text-[#E8E8E8]">|</span>
                             {priorityIcons[opportunityData.priorityName as keyof typeof priorityIcons]}
                         </div>
                     </CardDescription>
@@ -364,14 +457,28 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
                             <span className="text-sm @3xl:text-xs">项目进度</span>
                             <span className="text-sm @3xl:text-xs">{opportunityData.progress}%</span>
                         </div>
-                        <Progress value={opportunityData.progress} className="w-full"/>
+                        <Progress value={opportunityData.progress} className="w-full h-2 [&>div]:bg-[#00B4AA]"/>
                     </div>
                     
                     <div className="flex flex-col gap-2 mt-4">
                         <div className="flex justify-between items-center">
                             <div className="flex items-center gap-2">
-                                <span className="text-sm font-medium">当前阶段:</span>
-                                {stageStatus[opportunityData.status as keyof typeof stageStatus]}
+                            {isSelectionSubmitted ? (
+                                <Badge variant="outline" className="bg-[#FFD7CD]/50 text-[#F56428] border-[#F56428] flex items-center">
+                                    <CheckCircle2 className="w-3 h-3 mr-1 text-[#F56428]" />
+                                    已提交选型等待报价审批
+                                </Badge>
+                            ) : data.id === "1003" ? (
+                                <Badge variant="outline" className="bg-[#C8F0F0]/50 text-[#00B4AA] border-[#00B4AA] flex items-center">
+                                    <CheckCircle2 className="w-3 h-3 mr-1 text-[#00B4AA]" />
+                                    报价已审批等待合同签订
+                                </Badge>
+                            ) : (
+                                <Badge variant="outline" className="bg-[#D7D2E6]/50 text-[#6E50B4] border-[#6E50B4] flex items-center">
+                                    <CircleDashed className="w-3 h-3 mr-1 text-[#6E50B4]" />
+                                    商机已建立待选型
+                                </Badge>
+                            )}
                             </div>
                             <Button 
                                 variant="outline" 
@@ -388,13 +495,13 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
                         </div>
                         
                         <div className="grid grid-cols-2 gap-x-2 gap-y-1 mt-2">
-                            <div className="flex items-center gap-1 text-muted-foreground">
+                            <div className="flex items-center gap-1 text-[#505050]">
                                 <Building className="h-3.5 w-3.5" />
                                 <span className="text-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                     {opportunityData.engineeringTypeName || "未指定"}
                                 </span>
                             </div>
-                            <div className="flex items-center gap-1 text-muted-foreground justify-end">
+                            <div className="flex items-center gap-1 text-[#505050] justify-end">
                                 <MapPin className="h-3.5 w-3.5" />
                                 <span className="text-xs overflow-hidden text-ellipsis whitespace-nowrap">
                                     {opportunityData.locationName || "未指定"}
@@ -406,28 +513,28 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
                     <div className="mt-4 flex flex-col gap-2">
                         <div className="flex items-center justify-between">
                             <div className="flex flex-col">
-                                <span className="text-xs text-muted-foreground">项目类型</span>
+                                <span className="text-xs text-[#505050]">项目类型</span>
                                 <span className="text-sm font-medium">{opportunityData.projectTypeName}</span>
                             </div>
                             <div className="flex flex-col text-right">
-                                <span className="text-xs text-muted-foreground">电梯数量</span>
+                                <span className="text-xs text-[#505050]">电梯数量</span>
                                 <span className="text-sm font-medium">{opportunityData.elevatorCount}台</span>
                             </div>
                         </div>
                         
                         <div className="flex items-center justify-between">
                             <div className="flex flex-col">
-                                <span className="text-xs text-muted-foreground">总投标额</span>
+                                <span className="text-xs text-[#505050]">总投标额</span>
                                 <span className="text-sm font-medium">{opportunityData.estimatedAmount}万元</span>
                             </div>
                             <div className="flex flex-col text-right">
-                                <span className="text-xs text-muted-foreground">预计签约</span>
+                                <span className="text-xs text-[#505050]">预计签约</span>
                                 <span className="text-sm font-medium">{opportunityData.expectedSignDate.split('T')[0]}</span>
                             </div>
                         </div>
                     </div>
                     
-                    <Separator className="my-3" />
+                    <Separator className="my-3 bg-[#E8E8E8]" />
                     
                     <div className="flex flex-col gap-1.5">
                         <div className="flex items-center gap-1">
@@ -450,7 +557,22 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
                 <CardFooter className="flex flex-col space-y-2 pt-2">
                     <div className="flex justify-between items-center w-full">
                         <div className="flex items-center space-x-2">
-                            <Button 
+
+                            {/* <Button 
+                                className="flex-1 cursor-pointer @3xl:text-xs h-9 bg-[#E11E50] hover:bg-[#F0D2DC] hover:text-[#E11E50]"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setOpenNextStageDialog(true);
+                                }}
+                                disabled={getNextStage(opportunityData.status) === null}
+                            >
+                                <ArrowRight className="w-4 h-4 mr-2" />
+                                下一阶段
+                            </Button> */}
+                        </div>
+                        
+                        <div className="flex items-center space-x-2">
+                        <Button 
                                 className="flex-1 cursor-pointer @3xl:text-xs h-9"
                                 variant="outline"
                                 onClick={(e) => {
@@ -461,27 +583,30 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
                                 <Calculator className="w-4 h-4 mr-2" />
                                 查看详情
                             </Button>
-                            <Button 
-                                className="flex-1 cursor-pointer @3xl:text-xs h-9"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setOpenNextStageDialog(true);
-                                }}
-                                disabled={getNextStage(opportunityData.status) === null}
-                            >
-                                <ArrowRight className="w-4 h-4 mr-2" />
-                                下一阶段
-                            </Button>
-                        </div>
-                        
-                        <div className="flex items-center space-x-2">
-                            {isSelectionSubmitted && (
-                                <Badge variant="outline" className="bg-green-50 text-green-600 border-green-100 flex items-center">
-                                    <CheckCircle2 className="w-3 h-3 mr-1" />
-                                    提交选型
-                                </Badge>
-                            )}
-                            <Button 
+                            {
+                                data.id === "1003" ? (
+                                    <>
+                                    <Button 
+                                    size="sm" 
+                                    variant="outline"
+                                    className="flex items-center"
+                                    onClick={handleGoToQuotation}
+                                >
+                                    <Calculator className="mr-1 h-4 w-4" />
+                                   查看报价
+                                </Button>
+                                <Button 
+                                    size="sm" 
+                                    variant="outline"
+                                    className="flex items-center bg-[#005FC8] text-white hover:bg-[#005FC8]/80 hover:text-white hover:cursor-pointer"
+                                    onClick={handleViewContract}
+                                >   
+                                    <ReceiptText className="mr-1 h-4 w-4" />
+                                    生成合同
+                                </Button>
+                                    </>
+                                )   :(
+                                <Button 
                                 size="sm" 
                                 variant="outline"
                                 className="flex items-center"
@@ -490,6 +615,8 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
                                 <Calculator className="mr-1 h-4 w-4" />
                                 {isSelectionSubmitted ? "查看选型" : "电梯选型"}
                             </Button>
+                            )
+                            }
                         </div>
                     </div>
                 </CardFooter>
@@ -534,7 +661,7 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
                     <div className="py-4">
                         <p>当前阶段: {opportunityData.status}</p>
                         <p className="mt-2">下一阶段: {getNextStage(opportunityData.status)}</p>
-                        <p className="mt-4 text-amber-600">确认要进入下一阶段吗？此操作无法撤销。</p>
+                        <p className="mt-4 text-[#FF9800]">确认要进入下一阶段吗？此操作无法撤销。</p>
                     </div>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setOpenNextStageDialog(false)}>
@@ -682,6 +809,29 @@ export function OpportunityCard({ data, onUpdate }: OpportunityCardProps) {
                             </DialogFooter>
                         </form>
                     </Form>
+                </DialogContent>
+            </Dialog>
+
+            {/* 查看合同对话框 */}
+            <Dialog open={openContractDialog} onOpenChange={setOpenContractDialog}>
+                <DialogContent className="max-w-[95vw] max-h-[90vh] w-[1400px] overflow-hidden flex flex-col">
+                    <DialogHeader>
+                        <DialogTitle>合同文件</DialogTitle> 
+                    </DialogHeader>
+                    <div className="flex-1 overflow-auto p-1 min-h-[700px]">
+                        <iframe 
+                            src="/data/SCAN - 越南京东方整机二期项目设备合同-货梯.pdf" 
+                            width="100%" 
+                            height="100%" 
+                            style={{ minHeight: '700px', border: 'none' }}
+                        />
+                    </div>
+                    <DialogFooter className="mt-4">
+                        <Button onClick={handleDownloadContract} variant="outline" className="gap-2">
+                            <Download className="h-4 w-4" />
+                            下载合同
+                        </Button>
+                    </DialogFooter>
                 </DialogContent>
             </Dialog>
         </>

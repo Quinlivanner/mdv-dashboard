@@ -53,34 +53,40 @@ export default function OpportunityDetailPage() {
   const getPriorityBadge = (priority: string) => {
     switch(priority) {
       case '高':
-        return <Badge variant="outline" className="bg-[#FEF2F2] text-[#B45308] border-[#FECACA]">高</Badge>
+        // 使用 Midea 红色系
+        return <Badge variant="outline" className="bg-[#F8BBD0]/50 text-[#E91E63] border-[#F8BBD0]">高</Badge>
       case '中':
-        return <Badge variant="outline" className="bg-[#FFFBEB] text-[#B91B1C] border-[#FECACA]">中</Badge>
+        // 使用 Midea 橙色系
+        return <Badge variant="outline" className="bg-[#FFECB3]/50 text-[#FF9800] border-[#FFECB3]">中</Badge>
       case '低':
-        return <Badge variant="outline" className="bg-[#D1FAE5] text-[#065F46] border-[#34D399]">低</Badge>
+        // 使用 Midea 青色系
+        return <Badge variant="outline" className="bg-[#B2DFDB]/50 text-[#00B4AA] border-[#B2DFDB]">低</Badge>
       default:
-        return <Badge variant="outline">未知</Badge>
+        // 使用 Midea 灰色系
+        return <Badge variant="outline" className="bg-[#E8E8E8]/50 text-[#505050] border-[#E8E8E8]">未知</Badge>
     }
   }
 
   // 获取阶段标签样式
   const getStageBadge = (stage: string) => {
+    // 映射到 Midea 强调色
     const stageStyles: Record<string, string> = {
-      "需求收集": "bg-blue-50 text-blue-600 border-blue-100",
-      "方案设计": "bg-purple-50 text-purple-600 border-purple-100",
-      "技术交流": "bg-amber-50 text-amber-600 border-amber-100",
-      "初步报价": "bg-rose-50 text-rose-600 border-rose-100",
-      "方案优化": "bg-green-50 text-green-600 border-green-100",
-      "投标确认": "bg-indigo-50 text-indigo-600 border-indigo-100",
-      "商务谈判": "bg-emerald-50 text-emerald-600 border-emerald-100",
-      "合同签订": "bg-cyan-50 text-cyan-600 border-cyan-100",
-      "设计确认": "bg-fuchsia-50 text-fuchsia-600 border-fuchsia-100",
-      "生产制造": "bg-lime-50 text-lime-600 border-lime-100",
-      "安装交付": "bg-orange-50 text-orange-600 border-orange-100",
-      "售后服务": "bg-teal-50 text-teal-600 border-teal-100"
+      "需求收集": "bg-[#B2EBF2]/50 text-[#0092D8] border-[#B2EBF2]", // Midea 浅蓝 / 主蓝
+      "方案设计": "bg-[#D1C4E9]/50 text-[#8353B4] border-[#D1C4E9]", // Midea 浅紫 / 紫
+      "技术交流": "bg-[#FFF9C4]/50 text-[#FFC107] border-[#FFF9C4]", // Midea 浅黄 / 黄 (调整文本色)
+      "初步报价": "bg-[#F8BBD0]/50 text-[#E91E63] border-[#F8BBD0]", // Midea 浅粉 / 红
+      "方案优化": "bg-[#B2DFDB]/50 text-[#00B4AA] border-[#B2DFDB]", // Midea 浅青 / 青
+      "投标确认": "bg-[#D1C4E9]/50 text-[#8353B4] border-[#D1C4E9]", // 复用浅紫 / 紫
+      "商务谈判": "bg-[#B2DFDB]/50 text-[#00B4AA] border-[#B2DFDB]", // 复用浅青 / 青
+      "合同签订": "bg-[#B2EBF2]/50 text-[#0092D8] border-[#B2EBF2]", // 复用浅蓝 / 主蓝
+      "设计确认": "bg-[#F8BBD0]/50 text-[#E91E63] border-[#F8BBD0]", // 复用浅粉 / 红
+      "生产制造": "bg-[#FFF9C4]/50 text-[#FFC107] border-[#FFF9C4]", // 复用浅黄 / 黄
+      "安装交付": "bg-[#FFECB3]/50 text-[#FF9800] border-[#FFECB3]", // Midea 浅橙 / 橙
+      "售后服务": "bg-[#B2DFDB]/50 text-[#00B4AA] border-[#B2DFDB]"  // 复用浅青 / 青
     }
     
-    return <Badge variant="outline" className={stageStyles[stage] || "bg-gray-50 text-gray-600 border-gray-100"}>
+    // 默认使用 Midea 灰色系
+    return <Badge variant="outline" className={stageStyles[stage] || "bg-[#E8E8E8]/50 text-[#505050] border-[#E8E8E8]"}>
       {stage}
     </Badge>
   }
@@ -184,8 +190,8 @@ export default function OpportunityDetailPage() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="flex flex-col items-center gap-2">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-          <p className="text-sm text-muted-foreground">加载中...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0092D8]"></div>
+          <p className="text-sm text-[#505050]">加载中...</p>
         </div>
       </div>
     )
@@ -197,7 +203,7 @@ export default function OpportunityDetailPage() {
       <div className="flex flex-col items-center justify-center min-h-screen gap-4">
         <div className="text-4xl">😢</div>
         <h1 className="text-2xl font-bold">未找到商机</h1>
-        <p className="text-muted-foreground">该商机可能已被删除或不存在</p>
+        <p className="text-[#505050]">该商机可能已被删除或不存在</p>
         <Button onClick={() => router.push('/dashboard')}>
           <ArrowLeft className="mr-2 h-4 w-4" />
           返回列表
@@ -211,6 +217,7 @@ export default function OpportunityDetailPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Button 
+          className='ml-2'
             variant="ghost" 
             size="sm" 
             onClick={() => router.push('/dashboard')}
@@ -233,53 +240,53 @@ export default function OpportunityDetailPage() {
         </div>
       </div>
 
-      {/* 添加操作卡片 */}
+      {/* 添加操作卡片 - 应用 Midea 颜色 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4   px-2">
-        <Card className="bg-primary/5 hover:bg-primary/10 cursor-pointer transition-colors ">
+        <Card className="bg-[#0092D8]/5 hover:bg-[#0092D8]/10 cursor-pointer transition-colors ">
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center">
-              <Calculator className="h-4 w-4 mr-2 text-primary" />
+              <Calculator className="h-4 w-4 mr-2 text-[#0092D8]" />
               生成报价
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <CardDescription>基于项目需求生成详细报价方案</CardDescription>
+            <CardDescription className="text-[#505050]">基于项目需求生成详细报价方案</CardDescription>
           </CardContent>
         </Card>
         
-        <Card className="bg-blue-50 hover:bg-blue-100 cursor-pointer transition-colors">
+        <Card className="bg-[#B2DFDB]/50 hover:bg-[#B2DFDB]/80 cursor-pointer transition-colors">
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center">
-              <CheckCircle2 className="h-4 w-4 mr-2 text-blue-600" />
+              <CheckCircle2 className="h-4 w-4 mr-2 text-[#00B4AA]" />
               更新状态
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <CardDescription>更新项目阶段和完成情况</CardDescription>
+            <CardDescription className="text-[#505050]">更新项目阶段和完成情况</CardDescription>
           </CardContent>
         </Card>
         
-        <Card className="bg-amber-50 hover:bg-amber-100 cursor-pointer transition-colors">
+        <Card className="bg-[#D1C4E9]/50 hover:bg-[#D1C4E9]/80 cursor-pointer transition-colors">
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center">
-              <Users className="h-4 w-4 mr-2 text-amber-600" />
+              <Users className="h-4 w-4 mr-2 text-[#8353B4]" />
               安排团队
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <CardDescription>分配工程师和销售团队</CardDescription>
+            <CardDescription className="text-[#505050]">分配工程师和销售团队</CardDescription>
           </CardContent>
         </Card>
         
-        <Card className="bg-emerald-50 hover:bg-emerald-100 cursor-pointer transition-colors">
+        <Card className="bg-[#FFECB3]/50 hover:bg-[#FFECB3]/80 cursor-pointer transition-colors">
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center">
-              <Mail className="h-4 w-4 mr-2 text-emerald-600" />
+              <Mail className="h-4 w-4 mr-2 text-[#FF9800]" />
               发送文档
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <CardDescription>向客户发送项目文档和报价</CardDescription>
+            <CardDescription className="text-[#505050]">向客户发送项目文档和报价</CardDescription>
           </CardContent>
         </Card>
       </div>
@@ -293,14 +300,14 @@ export default function OpportunityDetailPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">项目编号</span>
+                <span className="text-sm text-[#505050]">项目编号</span>
                 <span className="text-sm font-medium">{opportunity.projectCode}</span>
               </div>
               
               <Separator />
               
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">当前阶段</span>
+                <span className="text-sm text-[#505050]">当前阶段</span>
                 <div>{getStageBadge(opportunity.status)}</div>
               </div>
               
@@ -308,46 +315,46 @@ export default function OpportunityDetailPage() {
               
               <div className="flex flex-col gap-1">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">项目进度</span>
+                  <span className="text-sm text-[#505050]">项目进度</span>
                   <span className="text-sm font-medium">{opportunity.progress}%</span>
                 </div>
-                <Progress value={opportunity.progress} className="h-2" />
+                <Progress value={opportunity.progress} className="h-2 [&>div]:bg-[#00B4AA]" />
               </div>
               
               <Separator />
               
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">项目类型</span>
+                <span className="text-sm text-[#505050]">项目类型</span>
                 <span className="text-sm font-medium">{opportunity.projectTypeName}</span>
               </div>
               
               <Separator />
               
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">客户类型</span>
+                <span className="text-sm text-[#505050]">客户类型</span>
                 <span className="text-sm font-medium">{opportunity.customerTypeName || "未设置"}</span>
               </div>
               
               <Separator />
               
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">总投标额</span>
+                <span className="text-sm text-[#505050]">总投标额</span>
                 <span className="text-sm font-medium">{opportunity.estimatedAmount} 万元</span>
               </div>
               
               <Separator />
               
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">电梯数量</span>
+                <span className="text-sm text-[#505050]">电梯数量</span>
                 <span className="text-sm font-medium">{opportunity.elevatorCount} 台</span>
               </div>
               
               <Separator />
               
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">预计签约日期</span>
+                <span className="text-sm text-[#505050]">预计签约日期</span>
                 <div className="flex items-center gap-1 text-sm font-medium">
-                  <CalendarIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                  <CalendarIcon className="h-3.5 w-3.5 text-[#505050]" />
                   {new Date(opportunity.expectedSignDate).toLocaleDateString()}
                 </div>
               </div>
@@ -355,9 +362,9 @@ export default function OpportunityDetailPage() {
               <Separator />
               
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">创建日期</span>
+                <span className="text-sm text-[#505050]">创建日期</span>
                 <div className="flex items-center gap-1 text-sm font-medium">
-                  <CalendarIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                  <CalendarIcon className="h-3.5 w-3.5 text-[#505050]" />
                   {new Date(opportunity.createdAt).toLocaleDateString()}
                 </div>
               </div>
@@ -371,24 +378,24 @@ export default function OpportunityDetailPage() {
             <CardTitle className="text-lg">客户信息</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex items-center p-4 bg-muted/30 rounded-lg">
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                <Building className="h-6 w-6 text-primary" />
+            <div className="flex items-center p-4 bg-[#E8E8E8]/30 rounded-lg">
+              <div className="h-12 w-12 rounded-full bg-[#0092D8]/10 flex items-center justify-center mr-4">
+                <Building className="h-6 w-6 text-[#0092D8]" />
               </div>
               <div>
                 <h3 className="font-medium">{opportunity.customerName}</h3>
-                <p className="text-sm text-muted-foreground">{opportunity.customerTypeName || "客户"}</p>
+                <p className="text-sm text-[#505050]">{opportunity.customerTypeName || "客户"}</p>
               </div>
             </div>
 
             <div className="space-y-3">
               <div className="flex items-start gap-3">
-                <MapPin className="h-4 w-4 text-muted-foreground mt-0.5" />
+                <MapPin className="h-4 w-4 text-[#505050] mt-0.5" />
                 <div className="flex-1">
                   <p className="text-sm font-medium">项目地址</p>
-                  <p className="text-sm text-muted-foreground">{opportunity.projectAddress || "未提供"}</p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    <Badge variant="outline" className="font-normal">
+                  <p className="text-sm text-[#505050]">{opportunity.projectAddress || "未提供"}</p>
+                  <p className="text-sm text-[#505050] mt-1">
+                    <Badge variant="outline" className="font-normal border-[#E8E8E8] text-[#505050]">
                       {opportunity.locationName || "未知地区"}
                     </Badge>
                   </p>
@@ -398,50 +405,50 @@ export default function OpportunityDetailPage() {
               <Separator />
               
               <div className="flex items-start gap-3">
-                <Phone className="h-4 w-4 text-muted-foreground mt-0.5" />
+                <Phone className="h-4 w-4 text-[#505050] mt-0.5" />
                 <div>
                   <p className="text-sm font-medium">联系电话</p>
-                  <p className="text-sm text-muted-foreground">{opportunity.contactPhone || "未提供"}</p>
+                  <p className="text-sm text-[#505050]">{opportunity.contactPhone || "未提供"}</p>
                 </div>
               </div>
               
               <Separator />
               
               <div className="flex items-start gap-3">
-                <Mail className="h-4 w-4 text-muted-foreground mt-0.5" />
+                <Mail className="h-4 w-4 text-[#505050] mt-0.5" />
                 <div>
                   <p className="text-sm font-medium">联系邮箱</p>
-                  <p className="text-sm text-muted-foreground">{opportunity.contactEmail || "未提供"}</p>
+                  <p className="text-sm text-[#505050]">{opportunity.contactEmail || "未提供"}</p>
                 </div>
               </div>
               
               <Separator />
               
               <div className="flex items-start gap-3">
-                <Building className="h-4 w-4 text-muted-foreground mt-0.5" />
+                <Building className="h-4 w-4 text-[#505050] mt-0.5" />
                 <div>
                   <p className="text-sm font-medium">工程类型</p>
-                  <p className="text-sm text-muted-foreground">{opportunity.engineeringTypeName || "未指定"}</p>
+                  <p className="text-sm text-[#505050]">{opportunity.engineeringTypeName || "未指定"}</p>
                 </div>
               </div>
               
               <Separator />
               
               <div className="flex items-start gap-3">
-                <Building className="h-4 w-4 text-muted-foreground mt-0.5" />
+                <Building className="h-4 w-4 text-[#505050] mt-0.5" />
                 <div>
                   <p className="text-sm font-medium">行业分类</p>
-                  <p className="text-sm text-muted-foreground">{opportunity.industryTypeName || "未指定"}</p>
+                  <p className="text-sm text-[#505050]">{opportunity.industryTypeName || "未指定"}</p>
                 </div>
               </div>
               
               <Separator />
               
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="h-4 w-4 text-muted-foreground mt-0.5" />
+                <CheckCircle2 className="h-4 w-4 text-[#505050] mt-0.5" />
                 <div>
                   <p className="text-sm font-medium">大盘采购</p>
-                  <p className="text-sm text-muted-foreground">{opportunity.isLargeProjectName || "否"}</p>
+                  <p className="text-sm text-[#505050]">{opportunity.isLargeProjectName || "否"}</p>
                 </div>
               </div>
               
@@ -449,10 +456,10 @@ export default function OpportunityDetailPage() {
                 <>
                   <Separator />
                   <div className="flex items-start gap-3">
-                    <Calculator className="h-4 w-4 text-muted-foreground mt-0.5" />
+                    <Calculator className="h-4 w-4 text-[#505050] mt-0.5" />
                     <div>
                       <p className="text-sm font-medium">合同编号</p>
-                      <p className="text-sm text-muted-foreground">{opportunity.contractCode}</p>
+                      <p className="text-sm text-[#505050]">{opportunity.contractCode}</p>
                     </div>
                   </div>
                 </>
@@ -461,39 +468,39 @@ export default function OpportunityDetailPage() {
           </CardContent>
         </Card>
         
-        {/* 第三列：重要时间点 */}
+        {/* 第三列：重要时间点 - 应用 Midea 颜色 */}
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">重要时间点</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="flex flex-col gap-4">
-              <div className="flex items-center p-3 bg-muted/30 rounded-lg">
-                <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-600" />
+              <div className="flex items-center p-3 bg-[#E8E8E8]/30 rounded-lg">
+                <div className="h-10 w-10 rounded-full bg-[#B2DFDB]/50 flex items-center justify-center mr-3">
+                  <CheckCircle2 className="h-5 w-5 text-[#00B4AA]" />
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">项目创建</p>
+                  <p className="text-xs text-[#505050]">项目创建</p>
                   <p className="font-medium">{new Date(opportunity.createdAt).toLocaleDateString()}</p>
                 </div>
               </div>
               
-              <div className="flex items-center p-3 bg-muted/30 rounded-lg">
-                <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                  <Clock className="h-5 w-5 text-blue-600" />
+              <div className="flex items-center p-3 bg-[#E8E8E8]/30 rounded-lg">
+                <div className="h-10 w-10 rounded-full bg-[#0092D8]/10 flex items-center justify-center mr-3">
+                  <Clock className="h-5 w-5 text-[#0092D8]" />
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">当前状态: {opportunity.status}</p>
+                  <p className="text-xs text-[#505050]">当前状态: {opportunity.status}</p>
                   <p className="font-medium">{opportunity.progress}%</p>
                 </div>
               </div>
               
-              <div className="flex items-center p-3 bg-muted/30 rounded-lg">
-                <div className="h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center mr-3">
-                  <CalendarIcon className="h-5 w-5 text-amber-600" />
+              <div className="flex items-center p-3 bg-[#E8E8E8]/30 rounded-lg">
+                <div className="h-10 w-10 rounded-full bg-[#FFECB3]/50 flex items-center justify-center mr-3">
+                  <CalendarIcon className="h-5 w-5 text-[#FF9800]" />
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">预计签约</p>
+                  <p className="text-xs text-[#505050]">预计签约</p>
                   <p className="font-medium">{new Date(opportunity.expectedSignDate).toLocaleDateString()}</p>
                 </div>
               </div>
@@ -504,20 +511,20 @@ export default function OpportunityDetailPage() {
       
       {/* 选项卡区域 */}
       <Tabs defaultValue="activity" className="mt-6 px-2">
-        <TabsList className="bg-background border">
-          <TabsTrigger value="activity" className="data-[state=active]:bg-muted">
+        <TabsList className="bg-background border border-[#E8E8E8]">
+          <TabsTrigger value="activity" className="data-[state=active]:bg-[#E8E8E8]/50">
             <Activity className="h-4 w-4 mr-2" />
             项目动态
           </TabsTrigger>
-          <TabsTrigger value="notes" className="data-[state=active]:bg-muted">
+          <TabsTrigger value="notes" className="data-[state=active]:bg-[#E8E8E8]/50">
             <StickyNote className="h-4 w-4 mr-2" />
             备注记录
           </TabsTrigger>
-          <TabsTrigger value="documents" className="data-[state=active]:bg-muted">
+          <TabsTrigger value="documents" className="data-[state=active]:bg-[#E8E8E8]/50">
             <FileText className="h-4 w-4 mr-2" />
             项目文档
           </TabsTrigger>
-          <TabsTrigger value="contacts" className="data-[state=active]:bg-muted">
+          <TabsTrigger value="contacts" className="data-[state=active]:bg-[#E8E8E8]/50">
             <Users className="h-4 w-4 mr-2" />
             联系人
           </TabsTrigger>
@@ -531,29 +538,34 @@ export default function OpportunityDetailPage() {
                   <div key={index} className="flex gap-4 pt-4 first:pt-0">
                     <div className="relative">
                       <span className={`h-8 w-8 rounded-full flex items-center justify-center ${
-                        activity.type === 'message' ? 'bg-blue-100' :
-                        activity.type === 'status' ? 'bg-green-100' : 
-                        activity.type === 'document' ? 'bg-amber-100' : 'bg-gray-100'
+                        activity.type === 'message' ? 'bg-[#B2EBF2]/50' :  // Midea 浅蓝
+                        activity.type === 'status' ? 'bg-[#B2DFDB]/50' :   // Midea 浅青
+                        activity.type === 'document' ? 'bg-[#FFECB3]/50' : // Midea 浅橙
+                        activity.type === 'meeting' ? 'bg-[#D1C4E9]/50' :  // Midea 浅紫
+                        'bg-[#E8E8E8]/50' // Midea 浅灰
                       }`}>
-                        {activity.type === 'message' && <MessageSquare className="h-4 w-4 text-blue-600" />}
-                        {activity.type === 'status' && <RefreshCcw className="h-4 w-4 text-green-600" />}
-                        {activity.type === 'document' && <FileText className="h-4 w-4 text-amber-600" />}
-                        {activity.type === 'meeting' && <Calendar className="h-4 w-4 text-indigo-600" />}
+                        {activity.type === 'message' && <MessageSquare className="h-4 w-4 text-[#0092D8]" />}
+                        {activity.type === 'status' && <RefreshCcw className="h-4 w-4 text-[#00B4AA]" />}
+                        {activity.type === 'document' && <FileText className="h-4 w-4 text-[#FF9800]" />}
+                        {activity.type === 'meeting' && <Calendar className="h-4 w-4 text-[#8353B4]" />}
                       </span>
                       {index < activities.length - 1 && (
-                        <span className="absolute top-8 bottom-0 left-1/2 w-0.5 -translate-x-1/2 bg-border" />
+                        // 使用 Midea 浅灰作为分割线
+                        <span className="absolute top-8 bottom-0 left-1/2 w-0.5 -translate-x-1/2 bg-[#E8E8E8]" />
                       )}
                     </div>
                     <div className="flex-1 space-y-1">
                       <div className="flex items-center justify-between">
                         <p className="font-medium">{activity.title}</p>
-                        <time className="text-sm text-muted-foreground">{activity.time}</time>
+                        {/* 使用 Midea 深灰色 */}
+                        <time className="text-sm text-[#505050]">{activity.time}</time>
                       </div>
-                      <p className="text-sm text-muted-foreground">{activity.description}</p>
+                      <p className="text-sm text-[#505050]">{activity.description}</p>
                       {activity.type === 'document' && (
                         <div className="mt-2 flex items-center gap-2">
-                          <FileText className="h-4 w-4 text-muted-foreground" />
-                          <span className="text-sm font-medium underline cursor-pointer hover:text-primary">
+                          <FileText className="h-4 w-4 text-[#505050]" />
+                          {/* 使用 Midea 主蓝色作为链接颜色 */}
+                          <span className="text-sm font-medium underline cursor-pointer hover:text-[#0092D8]">
                             {activity.fileName}
                           </span>
                         </div>
@@ -587,13 +599,13 @@ export default function OpportunityDetailPage() {
                         </Avatar>
                         <span className="font-medium text-sm">{note.author}</span>
                       </div>
-                      <time className="text-xs text-muted-foreground">{note.time}</time>
+                      <time className="text-xs text-[#505050]">{note.time}</time>
                     </div>
                     <p className="text-sm">{note.content}</p>
                     {note.tags && (
                       <div className="flex items-center gap-2">
                         {note.tags.map((tag, tagIndex) => (
-                          <Badge key={tagIndex} variant="outline" className="text-xs">
+                          <Badge key={tagIndex} variant="outline" className="text-xs border-[#E8E8E8] text-[#505050]">
                             {tag}
                           </Badge>
                         ))}
@@ -621,21 +633,23 @@ export default function OpportunityDetailPage() {
                   <div key={index} className="flex items-center justify-between border rounded-md p-3">
                     <div className="flex items-center gap-3">
                       <div className={`h-9 w-9 rounded-md flex items-center justify-center ${
-                        document.type === 'pdf' ? 'bg-red-100' :
-                        document.type === 'doc' ? 'bg-blue-100' :
-                        document.type === 'xls' ? 'bg-green-100' :
-                        document.type === 'ppt' ? 'bg-amber-100' : 'bg-gray-100'
+                        document.type === 'pdf' ? 'bg-[#F8BBD0]/50' : // Midea 浅粉
+                        document.type === 'doc' ? 'bg-[#B2EBF2]/50' : // Midea 浅蓝
+                        document.type === 'xls' ? 'bg-[#B2DFDB]/50' : // Midea 浅青
+                        document.type === 'ppt' ? 'bg-[#FFECB3]/50' : // Midea 浅橙
+                        'bg-[#E8E8E8]/50' // Midea 浅灰
                       }`}>
                         <FileText className={`h-5 w-5 ${
-                          document.type === 'pdf' ? 'text-red-600' :
-                          document.type === 'doc' ? 'text-blue-600' :
-                          document.type === 'xls' ? 'text-green-600' :
-                          document.type === 'ppt' ? 'text-amber-600' : 'text-gray-600'
+                          document.type === 'pdf' ? 'text-[#E91E63]' : // Midea 红
+                          document.type === 'doc' ? 'text-[#0092D8]' : // Midea 主蓝
+                          document.type === 'xls' ? 'text-[#00B4AA]' : // Midea 青
+                          document.type === 'ppt' ? 'text-[#FF9800]' : // Midea 橙
+                          'text-[#505050]' // Midea 深灰
                         }`} />
                       </div>
                       <div>
                         <p className="font-medium text-sm">{document.name}</p>
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-2 text-xs text-[#505050]">
                           <span>{document.size}</span>
                           <span>•</span>
                           <span>{document.uploadedAt}</span>
@@ -677,21 +691,21 @@ export default function OpportunityDetailPage() {
                       </Avatar>
                       <div>
                         <p className="font-medium">{contact.name}</p>
-                        <p className="text-sm text-muted-foreground">{contact.position}</p>
+                        <p className="text-sm text-[#505050]">{contact.position}</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 gap-1">
                       <div className="flex items-center gap-2 text-sm">
-                        <Phone className="h-3.5 w-3.5 text-muted-foreground" />
+                        <Phone className="h-3.5 w-3.5 text-[#505050]" />
                         <span>{contact.phone}</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm">
-                        <Mail className="h-3.5 w-3.5 text-muted-foreground" />
+                        <Mail className="h-3.5 w-3.5 text-[#505050]" />
                         <span>{contact.email}</span>
                       </div>
                       {contact.wechat && (
                         <div className="flex items-center gap-2 text-sm">
-                          <MessageSquare className="h-3.5 w-3.5 text-muted-foreground" />
+                          <MessageSquare className="h-3.5 w-3.5 text-[#505050]" />
                           <span>{contact.wechat}</span>
                         </div>
                       )}
